@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Maximum City — Event</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { min-height: 100vh; background: #001A16; font-family: Georgia, serif; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+  .emoji-field { position: fixed; inset: 0; pointer-events: none; z-index: 0; }
+  .emoji {
+    position: absolute; opacity: 0;
+    animation: riseSmooth var(--dur) cubic-bezier(0.25,0.46,0.45,0.94) infinite;
+    animation-delay: var(--delay);
+    left: var(--x); top: 110%;
+  }
+  @keyframes riseSmooth {
+    0%   { opacity: 0; transform: translateY(0); }
+    8%   { opacity: 0.7; }
+    92%  { opacity: 0.4; }
+    100% { opacity: 0; transform: translateY(-130vh); }
+  }
+  .card {
+    position: relative; z-index: 10; width: 88vw; max-width: 380px;
+    background: #001210; border: 2px solid #1A8B6B;
+    border-radius: 4px; overflow: hidden;
+    box-shadow: 0 0 60px rgba(26,139,107,0.3);
+  }
+  .sector-bar { background: #1A6B6B; padding: 10px 20px; display: flex; align-items: center; gap: 10px; }
+  .sector-label { font-family: Arial, sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 0.25em; color: #FAF7F2; text-transform: uppercase; }
+  .sector-dot { width: 8px; height: 8px; border-radius: 50%; background: #FAF7F2; opacity: 0.6; }
+  .card-body { padding: 28px 24px 32px; }
+  .event-type { font-family: Arial, sans-serif; font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase; color: #40C8A0; margin-bottom: 14px; }
+  .event-title { font-size: 26px; font-style: italic; color: #FAF7F2; line-height: 1.15; margin-bottom: 18px; }
+  .event-body { font-size: 13px; color: #80C8B0; line-height: 1.8; margin-bottom: 24px; font-style: italic; }
+  .rule-box { background: #1A6B6B; border-radius: 2px; padding: 14px 16px; margin-bottom: 20px; }
+  .rule-label { font-family: Arial, sans-serif; font-size: 8px; letter-spacing: 0.25em; text-transform: uppercase; color: #FAF7F2; opacity: 0.7; margin-bottom: 6px; }
+  .rule-text { font-family: Arial, sans-serif; font-size: 15px; font-weight: 700; color: #FAF7F2; line-height: 1.4; }
+  .affected { font-family: Arial, sans-serif; font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase; color: #40C8A0; opacity: 0.8; }
+  .divider { width: 100%; height: 1px; background: #1A6B6B; opacity: 0.3; margin: 20px 0; }
+  .game-name { font-family: Arial, sans-serif; font-size: 9px; letter-spacing: 0.3em; color: #40C8A0; opacity: 0.5; text-align: center; text-transform: uppercase; }
+</style>
+</head>
+<body>
+<div class="emoji-field" id="field"></div>
+<div class="card">
+  <div class="sector-bar">
+    <div class="sector-dot"></div>
+    <div class="sector-label">Corporate Sector — BKC</div>
+  </div>
+  <div class="card-body">
+    <div class="event-type">System Event #C-1</div>
+    <div class="event-title">Metro Line 3 Opens</div>
+    <div class="event-body">
+      "The Aqua Line opens on schedule. Air-conditioned, 
+      punctual, direct. From Cuffe Parade to SEEPZ 
+      in thirty-three minutes. The city has never moved 
+      so cleanly — for those the system was designed for."
+    </div>
+    <div class="rule-box">
+      <div class="rule-label">Game Rule</div>
+      <div class="rule-text">Move forward 5 spaces for free. Corporate players only — metro access is not universal.</div>
+    </div>
+    <div class="affected">Affects: Corporate sector players only</div>
+    <div class="divider"></div>
+    <div class="game-name">Maximum City · Mumbai</div>
+  </div>
+</div>
+<script>
+const emojis = ['🚇','🏙️','✅','🟢','💼','🏢','⚡','🛤️','🌆','💳'];
+const field = document.getElementById('field');
+for (let i = 0; i < 22; i++) {
+  const el = document.createElement('div');
+  el.className = 'emoji';
+  el.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+  el.style.setProperty('--x', Math.random() * 100 + 'vw');
+  el.style.setProperty('--dur', (5 + Math.random() * 6) + 's');
+  el.style.setProperty('--delay', (Math.random() * 7) + 's');
+  el.style.fontSize = (1.1 + Math.random() * 1.3) + 'rem';
+  field.appendChild(el);
+}
+</script>
+</body>
+</html>
